@@ -1,0 +1,5 @@
+DATA_PATH = './data'
+COVER_LETTER_PATH = 'cover_letter.txt'
+SMART_RECRUITERS_JOBS = './data/smart_recruiters_jobs.csv'
+BOT_ICON = './data/bot_icon.ico'
+BOT_PNG = './data/bot_png.png'
