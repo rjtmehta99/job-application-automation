@@ -3,12 +3,7 @@ import scrape_smart_recruiter
 import helper
 import constants
 
-urls = ['https://jobs.smartrecruiters.com/?keyword=data%20scientist', 
-        'https://jobs.smartrecruiters.com/?keyword=machine%20learning',
-        'https://jobs.smartrecruiters.com/?keyword=data%20science',
-        'https://jobs.smartrecruiters.com/?keyword=data%20analyst']
-
-jobs_df = scrape_smart_recruiter.scrape(urls)
+jobs_df = scrape_smart_recruiter.scrape(constants.SMART_RECRUITERS_URLS)
 unnotified_jobs = jobs_df[jobs_df['notified'] == False]['url'].to_list()
 
 if len(unnotified_jobs) > 0:
