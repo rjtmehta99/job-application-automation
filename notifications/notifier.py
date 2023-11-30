@@ -1,9 +1,9 @@
 from __future__ import annotations
 from win11toast import toast
 import webbrowser
-import constants
+from helpers import constants
 
-def open_urls(args, urls):
+def open_urls(args: str, urls: list[str]) -> None:
     if type(urls) == list:
         for url in urls:
             webbrowser.open(url)
@@ -11,8 +11,7 @@ def open_urls(args, urls):
         webbrowser.open(urls)
 
 
-def notify(urls: str|list[str]) -> None:
-    print('here')
+def notify(urls: list[str]) -> None:
     toast(title='Relevant Jobs Found!', 
           body='Click to open jobs',
           on_click= lambda args: open_urls(args, urls),

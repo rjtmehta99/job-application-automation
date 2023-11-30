@@ -2,9 +2,9 @@
 # TODO: YAML for params in constants.
 # TODO: Apply via LinkedIn automatically, stop at other questions.
 from __future__ import annotations
-import constants
+from helpers import constants
 import pandas as pd
-import selenium_helper
+from helpers import selenium_helper
 import logging
 logging.basicConfig(level=logging.INFO)
 

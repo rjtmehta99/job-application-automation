@@ -1,7 +1,6 @@
-import notifier
-import scrape_smart_recruiter
-import helper
-import constants
+from notifications import notifier
+from scrapers import scrape_smart_recruiter
+from helpers import helper, constants
 
 jobs_df = scrape_smart_recruiter.scrape(constants.SMART_RECRUITERS_URLS)
 unnotified_jobs = jobs_df[jobs_df['notified'] == False]['url'].to_list()
