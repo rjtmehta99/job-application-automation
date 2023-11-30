@@ -1,15 +1,12 @@
 # TODO: parameterize location and company names.
 # TODO: YAML for params in constants.
-# Apply via LinkedIn automatically, stop at other questions.
+# TODO: Apply via LinkedIn automatically, stop at other questions.
 from __future__ import annotations
 import constants
 import pandas as pd
 import selenium_helper
-
-from logger import config_logging
 import logging
-config_logging()
-logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 def scrape(urls: list[str]) -> pd.DataFrame:
     for url in urls:
