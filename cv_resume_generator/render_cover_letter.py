@@ -1,5 +1,5 @@
 import argparse
-from helpers import constants
+import constants
 from jinja2 import Environment, FileSystemLoader
 import pyperclip
 

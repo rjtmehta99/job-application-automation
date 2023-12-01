@@ -86,3 +86,12 @@ class Selenium():
 
     def quit_driver(self) -> None:
         self.driver.quit()
+
+    def upload_file_by_css(self, css_selector: str, file_path: str) -> None:
+        '''
+        File path should be absolute
+        '''
+        file_input = self.driver.find_element(By.CSS_SELECTOR, css_selector)
+        file_input.send_keys(constants.RESUME_PATH)
+        self.sleep('')
+

@@ -6,11 +6,11 @@ from helpers import constants
 import pandas as pd
 from helpers import selenium_helper
 import logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARN)
 
 def scrape(urls: list[str]) -> pd.DataFrame:
     for url in urls:
-        logging.info(f'Scraping {url}')
+        logging.warn(f'Scraping {url}')
         selenium = selenium_helper.Selenium(url=url, headless=True)
         selenium.click_by_id(id_='onetrust-accept-btn-handler')
 
@@ -52,7 +52,7 @@ def scrape(urls: list[str]) -> pd.DataFrame:
     merged_df = pd.concat([current_df, previous_df])
     merged_df = merged_df.drop_duplicates(subset=['url'], keep='last').reset_index(drop=True)
     new_jobs = len(merged_df) - len(previous_df)
-    logging.info(f'{new_jobs} new jobs found')
+    logging.warn(f'{new_jobs} new jobs found')
     merged_df.to_csv(constants.SMART_RECRUITERS_JOBS, index=False)
     return merged_df
 
