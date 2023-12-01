@@ -87,11 +87,21 @@ class Selenium():
     def quit_driver(self) -> None:
         self.driver.quit()
 
+    def send_keys_by_id(self, id_: str, key: str) -> None:
+        element = self.driver.find_element(by=By.ID, value=id_)
+        element.send_keys(key)
+        self.sleep()
+
+    def send_keys_by_xpath(self, xpath: str, keys: list[str]) -> None:
+        element = self.driver.find_element(by=By.XPATH, value=xpath)
+        for key in keys:
+            element.send_keys(key)
+            self.sleep(1)
+
     def upload_file_by_css(self, css_selector: str, file_path: str) -> None:
         '''
         File path should be absolute
         '''
         file_input = self.driver.find_element(By.CSS_SELECTOR, css_selector)
         file_input.send_keys(constants.RESUME_PATH)
-        self.sleep('')
-
+        self.sleep()

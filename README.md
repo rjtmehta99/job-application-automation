@@ -18,3 +18,7 @@ Currently it can customize the cover letter and copy it to your clipboard.
 Will support Canva soon. 
 
 # Steps to run
+
+# Todos:
+1. Change how candidate data is shared. YAML?
+2. Develop a Chrome extension to trigger applier.

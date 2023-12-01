@@ -7,26 +7,26 @@ URL = 'https://jobs.smartrecruiters.com/oneclick-ui/company/HitachiSolutions/pub
 
 selenium = selenium_helper.Selenium(url=URL)
 
+# Send first name
+first_name = keyring.get_password('scraper', 'first_name')
+selenium.send_keys_by_id(id_='first-name-input', key=first_name)
+
+# Send last name
+last_name = keyring.get_password('scraper', 'last_name')
+selenium.send_keys_by_id(id_='last-name-input', key=last_name)
+
+# Send email id
+candidate_email = keyring.get_password('scraper', 'email')
+selenium.send_keys_by_id(id_='email-input', key=candidate_email)
+selenium.send_keys_by_id(id_='confirm-email-input', key=candidate_email)
+
+# Upload resume, ensure absolute path
 file_input = selenium.driver.find_element(By.CSS_SELECTOR, "input[type='file']")
 file_input.send_keys(constants.RESUME_PATH)
 
-user_email = keyring.get_password('scraper', 'email')
-confirm_email = selenium.driver.find_element(By.ID, "confirm-email-input")
-confirm_email.send_keys(user_email)
+# Send LI URL
+candidate_linkedin = keyring.get_password('scraper', 'linkedin-url')
+selenium.send_keys_by_id(id_='linkedin-input', value=candidate_linkedin)
 
-user_location = keyring.get_password('scraper', 'location')
-location = selenium.driver.find_element(by=By.XPATH, value="//input[@class='sr-location-autocomplete element--input element--block']")
-location.send_keys(user_location[:-1])
-location.send_keys(Keys.DOWN)
-location.send_keys(Keys.ENTER)
-
-user_linkedin = keyring.get_password('scraper', 'linkedin-url')
-linkedin = selenium.driver.find_element(by=By.ID, value='linkedin-input')
-linkedin.send_keys(user_linkedin)
-
-checkbox = selenium.driver.find_element(by=By.ID, value='SINGLE')
-checkbox.click()
-
-
-with open('./data/Resume_Rajat_Mehta.pdf') as f:
-    print(f.name)
+# Click on checkbox
+selenium.click_by_id(id_='SINGLE')
