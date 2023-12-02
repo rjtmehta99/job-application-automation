@@ -1,0 +1,59 @@
+first_name: John
+
+last_name: Doe
+
+email_id: john@doe.com
+
+location: New York
+
+mobile_number: 123456789
+
+linkedin_url: https://www.linkedin.com/in/john-doe/
+
+other_website: https://github.com/john-doe
+
+work_experience:
+  - company: FAANG 1
+    position: Data Scientist
+    location: Faang city
+    start_month: 04
+    start_year: 2020
+    end_month: 04
+    end_year: 2023
+    job_description: |
+      * Automated job application for humanity
+
+      * That's it
+
+  - company: FAANG 2
+    position: Data Scientist
+    location: Faang City
+    start_month: 02
+    start_year: 2019
+    end_month: 08
+    end_year: 2019
+    job_description: |
+      * Automated job application for humanity
+
+      * That's it
+
+education:
+  - university: XYZ University
+    major: Data Science
+    degree: MSc in Data Science
+    location: Hogwarts
+    description: ""
+    start_month: 04
+    start_year: 2023
+    end_month: 02
+    end_year: 2024
+
+  - university: AB College
+    major: AI
+    degree: BSc in AI
+    location: Hogwarts
+    description: ""
+    start_month: 07
+    start_year: 2012
+    end_month: 07
+    end_year: 2015

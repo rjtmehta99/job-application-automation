@@ -6,3 +6,4 @@ data/bot_icon.ico
 logger.py
 logging_config.ini
 *.pdf
+candidate_data.yaml

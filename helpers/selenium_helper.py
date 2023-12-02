@@ -50,6 +50,7 @@ class Selenium():
     def click_by_xpath(self, xpath: str) -> None:
         btn = self.driver.find_element(by=By.XPATH, value=xpath)
         btn.click()
+        self.sleep()
     
     def click_by_id(self, id_: str) -> None:
         btn = self.driver.find_element(by=By.ID, value=id_)
@@ -96,7 +97,7 @@ class Selenium():
         element = self.driver.find_element(by=By.XPATH, value=xpath)
         for key in keys:
             element.send_keys(key)
-            self.sleep(1)
+            self.sleep()
 
     def upload_file_by_css(self, css_selector: str, file_path: str) -> None:
         '''
@@ -105,3 +106,12 @@ class Selenium():
         file_input = self.driver.find_element(By.CSS_SELECTOR, css_selector)
         file_input.send_keys(constants.RESUME_PATH)
         self.sleep()
+
+    def add_dates_smartr(self, category: str , start: dict[str], end: dict[str]) -> None:
+        self.click_by_xpath(xpath=f'//input[@data-test="{category}-date-from"]')
+        self.click_by_xpath(xpath=f'//button[@aria-label="{start["year"]}"]')
+        self.click_by_xpath(xpath=f'//button[@aria-label="{start["month"]}/{start["year"]}"]')
+
+        self.click_by_xpath(xpath=f'//input[@data-test="{category}-date-to"]')
+        self.click_by_xpath(xpath=f'//button[@aria-label="{end["year"]}"]')
+        self.click_by_xpath(xpath=f'//button[@aria-label="{end["month"]}/{end["year"]}"]')

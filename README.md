@@ -22,3 +22,5 @@ Will support Canva soon.
 # Todos:
 1. Change how candidate data is shared. YAML?
 2. Develop a Chrome extension to trigger applier.
+3. Match JD with resume, apply if score > threshold.
+4. Get areas/domains the selected company specializes in.

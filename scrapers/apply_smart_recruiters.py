@@ -1,32 +1,110 @@
+from __future__ import annotations
+import yaml
+import keyring
+from helpers import constants
 from helpers import selenium_helper, constants
 from selenium.webdriver.common.by import By
-import keyring
 from selenium.webdriver.common.keys import Keys
+
+with open(constants.CANDIDATE_DATA, 'r') as file:
+    candidate_data = yaml.safe_load(file)
 
 URL = 'https://jobs.smartrecruiters.com/oneclick-ui/company/HitachiSolutions/publication/c83eaee0-aaa4-49a9-b380-7259c05fe178?dcr_ci=HitachiSolutions'
 
 selenium = selenium_helper.Selenium(url=URL)
 
 # Send first name
-first_name = keyring.get_password('scraper', 'first_name')
-selenium.send_keys_by_id(id_='first-name-input', key=first_name)
+selenium.send_keys_by_id(id_='first-name-input', key=candidate_data['first_name'])
 
 # Send last name
-last_name = keyring.get_password('scraper', 'last_name')
-selenium.send_keys_by_id(id_='last-name-input', key=last_name)
+selenium.send_keys_by_id(id_='last-name-input', key=candidate_data['last_name'])
 
 # Send email id
-candidate_email = keyring.get_password('scraper', 'email')
-selenium.send_keys_by_id(id_='email-input', key=candidate_email)
-selenium.send_keys_by_id(id_='confirm-email-input', key=candidate_email)
+selenium.send_keys_by_id(id_='email-input', key=candidate_data['email_id'])
+selenium.send_keys_by_id(id_='confirm-email-input', key=candidate_data['email_id'])
+
+# Send current location
+selenium.send_keys_by_xpath(xpath='//input[@class="sr-location-autocomplete element--input element--block"]',
+                            keys=[candidate_data['location'][:-1], Keys.DOWN, Keys.ENTER])
+
+# Send contact number
+selenium.send_keys_by_id(id_='phone-number-input', key=candidate_data['mobile_number'])
+
+# Add work experience
+for work_ex in candidate_data['work_experiences']:
+    selenium.click_by_xpath(xpath='//button[@data-test="add-experience"]')
+
+    # Send job title
+    selenium.send_keys_by_xpath(xpath='//input[@data-test="job-title-autocomplete"]', 
+                                keys=[work_ex['position']])
+    # Send company name
+    selenium.send_keys_by_xpath(xpath='//input[@data-test="company-autocomplete"]', 
+                                keys=[work_ex['company']])
+    # Send job location
+    selenium.send_keys_by_xpath(xpath='(//input[@class="sr-location-autocomplete element--input element--block"])[2]', 
+                                keys=[work_ex['location'], Keys.DOWN, Keys.ENTER])
+
+    selenium.send_keys_by_xpath(xpath='//textarea[@data-test="experience-description"]',
+                                keys=[work_ex['job_description']])
+    
+    start_date = {'month': str(work_ex['start_month']),
+                  'year': str(work_ex['start_year'])}
+    end_date = {'month': str(work_ex['end_month']),
+                'year': str(work_ex['end_year'])}
+    selenium.add_dates_smartr(category='experience', 
+                              start=start_date,
+                              end=end_date)
+
+    # Save work experience
+    selenium.click_by_xpath(xpath='//button[@data-test="experience-save"]')
+
+    selenium.sleep()
+
+# Cancel new work experience block
+selenium.click_by_xpath(xpath='//button[@data-test="experience-cancel"]')
+
+# Add academics
+selenium.click_by_xpath(xpath='//button[@data-test="add-education"]')
+
+for degree in candidate_data['academics']:
+    # Univeristy Name
+    selenium.send_keys_by_xpath(xpath='//input[@data-test="institution-autocomplete"]',
+                                keys=[degree['university']])
+    # University Major
+    selenium.send_keys_by_xpath(xpath='//input[@data-test="education-major"]',
+                                keys=[degree['major']])
+    # University Degree
+    selenium.send_keys_by_xpath(xpath='//input[@data-test="education-degree"]',
+                                keys=[degree['degree_level']])
+    # University Location
+    selenium.send_keys_by_xpath(xpath='//input[@data-test="location-autocomplete"]',
+                                keys=[degree['location']])
+    # Degree Description
+    selenium.send_keys_by_xpath(xpath='//textarea[@data-test="education-description"]',
+                                keys=[degree['description']])
+
+    start_date = {'month': str(degree['start_month']),
+                  'year': str(degree['start_year'])}
+    end_date = {'month': str(degree['end_month']),
+                'year': str(degree['end_year'])}
+    selenium.add_dates_smartr(category='education', 
+                              start=start_date,
+                              end=end_date)
+
+    # Save education
+    selenium.click_by_xpath(xpath='//button[@data-test="education-save"]')
+
+# Cancel new education
+selenium.click_by_xpath(xpath='//button[@data-test="education-cancel"]')
 
 # Upload resume, ensure absolute path
-file_input = selenium.driver.find_element(By.CSS_SELECTOR, "input[type='file']")
-file_input.send_keys(constants.RESUME_PATH)
+selenium.upload_file_by_css(css_selector="input[type='file']", file_path=constants.RESUME_PATH)
 
 # Send LI URL
-candidate_linkedin = keyring.get_password('scraper', 'linkedin-url')
-selenium.send_keys_by_id(id_='linkedin-input', value=candidate_linkedin)
+selenium.send_keys_by_id(id_='linkedin-input', value=candidate_data['linkedin_url'])
 
 # Click on checkbox
 selenium.click_by_id(id_='SINGLE')
+
+# Click on submit
+selenium.click_by_xpath(xpath='//button[@data-test="footer-submit"]')
