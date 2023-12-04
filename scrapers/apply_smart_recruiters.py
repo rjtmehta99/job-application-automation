@@ -122,8 +122,10 @@ for degree in candidate_data['academics']:
         selenium.send_keys_by_xpath(xpath='//input[@data-test="location-autocomplete"]',
                                     keys=[degree['location']])
     except NoSuchElementException:
-        selenium.send_keys_by_xpath(xpath='//input[@aria-label="School location"]',
+        selenium.send_keys_by_xpath(xpath='//input[(@aria-label="School location") or (@aria-label="Standort der Bildungsstätte")]',
                                     keys=[degree['location'], Keys.DOWN, Keys.ENTER])
+        #selenium.send_keys_by_xpath(xpath='//input[@class="sr-location-autocomplete"]',
+        #                            keys=[degree['location'], Keys.DOWN, Keys.ENTER])
     # Degree Description
     selenium.send_keys_by_xpath(xpath='//textarea[@data-test="education-description"]',
                                 keys=[degree['description']])
@@ -173,6 +175,6 @@ selenium.send_keys_by_id(id_='hiring-manager-message-input', key=cover_letter)
 try:
     # Click on submit
     selenium.click_by_xpath(xpath='//button[@data-test="footer-submit"]')
-    notifier.notify_application_success(job_args=job_args)
+    notifier.notify_application_success(job_args=job_args, urls=[selenium.url])
 except:
     notifier.notify_application_failure(job_args=job_args)
