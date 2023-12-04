@@ -62,6 +62,7 @@ class Selenium():
             element = selected_element.find_element(by=By.CLASS_NAME, value=class_)
         else:
             element = self.driver.find_element(by=By.CLASS_NAME, value=class_)
+        self.sleep()
         return element
 
     def elements_by_class(self, class_: str, selected_element: WebDriver = None) -> list[FirefoxWebElement]:
@@ -69,6 +70,7 @@ class Selenium():
             elements = selected_element.find_elements(by=By.CLASS_NAME, value=class_)
         else:
             elements = self.driver.find_elements(by=By.CLASS_NAME, value=class_)
+        self.sleep()
         return elements
     
     def element_by_tag(self, tag: str, selected_element: WebDriver = None) -> FirefoxWebElement:
@@ -76,6 +78,7 @@ class Selenium():
             element = selected_element.find_element(by=By.TAG_NAME, value=tag)
         else:
             element = self.driver.find_element(by=By.TAG_NAME, value=tag)
+        #self.sleep()
         return element
     
     def element_by_xpath(self, xpath: str, selected_element: WebDriver = None) -> FirefoxWebElement:
@@ -83,6 +86,7 @@ class Selenium():
             element = selected_element.find_element(by=By.XPATH, value=xpath)
         else:
             element = self.driver.find_element(by=By.XPATH, value=xpath)
+        self.sleep()
         return element
 
     def quit_driver(self) -> None:
@@ -97,7 +101,7 @@ class Selenium():
         element = self.driver.find_element(by=By.XPATH, value=xpath)
         for key in keys:
             element.send_keys(key)
-            self.sleep()
+            self.sleep(duration=4)
 
     def upload_file_by_css(self, css_selector: str, file_path: str) -> None:
         '''
@@ -111,7 +115,18 @@ class Selenium():
         self.click_by_xpath(xpath=f'//input[@data-test="{category}-date-from"]')
         self.click_by_xpath(xpath=f'//button[@aria-label="{start["year"]}"]')
         self.click_by_xpath(xpath=f'//button[@aria-label="{start["month"]}/{start["year"]}"]')
-
+        
         self.click_by_xpath(xpath=f'//input[@data-test="{category}-date-to"]')
         self.click_by_xpath(xpath=f'//button[@aria-label="{end["year"]}"]')
         self.click_by_xpath(xpath=f'//button[@aria-label="{end["month"]}/{end["year"]}"]')
+
+    def get_text_by_xpath(self, xpath:str) -> str:
+        element = self.element_by_xpath(xpath)
+        self.sleep()
+        return element.text
+    
+    def attribute_by_xpath(self, xpath: str, attribute: str) -> str:
+        element = self.element_by_xpath(xpath)
+        element_attribute = element.get_attribute(attribute)
+        self.sleep()
+        return element_attribute

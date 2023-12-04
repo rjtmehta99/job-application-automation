@@ -9,15 +9,15 @@ import logging
 logging.basicConfig(level=logging.WARN)
 
 def scrape(urls: list[str]) -> pd.DataFrame:
+    job_urls = []
+    positions = []
+    companies = []
+    locations = []
+
     for url in urls:
         logging.warn(f'Scraping {url}')
-        selenium = selenium_helper.Selenium(url=url, headless=True)
+        selenium = selenium_helper.Selenium(url=url, headless=False)
         selenium.click_by_id(id_='onetrust-accept-btn-handler')
-
-        job_urls = []
-        positions = []
-        companies = []
-        locations = []
 
         table = selenium.element_by_class(class_='jobs-list')
         rows = selenium.elements_by_class(class_='jobs-item', selected_element=table)
@@ -48,6 +48,7 @@ def scrape(urls: list[str]) -> pd.DataFrame:
     
     current_df = pd.DataFrame(data={'position': positions, 'company': companies, 
                                     'location': locations, 'url': job_urls})
+    current_df.to_csv('current_df.csv', index=False)
     current_df['notified'] = False
     merged_df = pd.concat([current_df, previous_df])
     merged_df = merged_df.drop_duplicates(subset=['url'], keep='last').reset_index(drop=True)
