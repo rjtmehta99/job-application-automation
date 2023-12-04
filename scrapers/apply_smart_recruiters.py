@@ -61,7 +61,7 @@ while True:
 # Remove experience and education info from resume
 while True:
     try:
-        selenium.click_by_xpath(xpath='//button[@aria-label="See options"]')
+        selenium.click_by_xpath(xpath='//button[(@aria-label="See options") or (@aria-label="Optionen anzeigen")]')
         selenium.click_by_xpath('//button[@data-test="entry-delete"]')
         selenium.click_by_xpath('//button[(text()="Yes") or (text()="Ja")]')
     except NoSuchElementException:
