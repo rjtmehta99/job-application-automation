@@ -25,7 +25,7 @@ def render_cover_letter(job_args: dict[str]) -> str:
     rendered_cover_letter = template.render(job_args)
     pyperclip.copy(rendered_cover_letter)
     print('[INFO] Cover letter generated and copied to clipboard.')
-    return render_cover_letter
+    return rendered_cover_letter
     
 if __name__ == '__main__':
     job_args = read_args()

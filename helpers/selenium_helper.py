@@ -130,3 +130,9 @@ class Selenium():
         element_attribute = element.get_attribute(attribute)
         self.sleep()
         return element_attribute
+    
+    def clear_by_xpath(self, xpath: str) -> None:
+        self.driver.find_element(by=By.XPATH, value=xpath).clear()
+
+    def clear_by_id(self, id_: str) -> None:
+        self.driver.find_element(by=By.ID, value=id_).clear()

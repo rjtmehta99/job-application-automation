@@ -16,7 +16,7 @@ def scrape(urls: list[str]) -> pd.DataFrame:
 
     for url in urls:
         logging.warn(f'Scraping {url}')
-        selenium = selenium_helper.Selenium(url=url, headless=False)
+        selenium = selenium_helper.Selenium(url=url, headless=True)
         selenium.click_by_id(id_='onetrust-accept-btn-handler')
 
         table = selenium.element_by_class(class_='jobs-list')
