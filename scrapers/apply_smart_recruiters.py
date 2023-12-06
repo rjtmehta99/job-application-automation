@@ -11,9 +11,9 @@ from cv_resume_generator.render_cover_letter import render_cover_letter
 with open(constants.CANDIDATE_DATA, 'r') as file:
     candidate_data = yaml.safe_load(file)
 
-def apply_smartr_job(url: str) -> None:
-    URL = 'https://jobs.smartrecruiters.com/HitachiSolutions/743999948479923-machine-learning-ai-engineer-m-w-d-'
-    selenium = selenium_helper.Selenium(url=URL)
+def apply(url: str) -> None:
+    #URL = 'https://jobs.smartrecruiters.com/HitachiSolutions/743999948479923-machine-learning-ai-engineer-m-w-d-'
+    selenium = selenium_helper.Selenium(url=url)
 
     # Click on apply / jetzt bewerben
     selenium.click_by_id('st-apply')

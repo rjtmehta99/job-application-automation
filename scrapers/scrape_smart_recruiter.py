@@ -48,7 +48,7 @@ def scrape(urls: list[str]) -> pd.DataFrame:
     
     current_df = pd.DataFrame(data={'position': positions, 'company': companies, 
                                     'location': locations, 'url': job_urls})
-    current_df.to_csv('current_df.csv', index=False)
+    #current_df.to_csv('current_df.csv', index=False)
     current_df['notified'] = False
     merged_df = pd.concat([current_df, previous_df])
     merged_df = merged_df.drop_duplicates(subset=['url'], keep='last').reset_index(drop=True)
