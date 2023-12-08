@@ -1,4 +1,5 @@
 from scrapers import apply_smart_recruiters
 
-url = 'https://jobs.smartrecruiters.com/TeamViewer1/743999949303460-solution-architect-all-genders-focus-ai'
+#url = 'https://jobs.smartrecruiters.com/BoschGroup/743999949346175-data-scientist-w-m-div-'
+url = 'https://jobs.smartrecruiters.com/AxelSpringerNewsMediaNational/743999950090444-data-scientist-m-w-d-'
 apply_smart_recruiters.apply(url)

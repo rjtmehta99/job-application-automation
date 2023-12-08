@@ -47,8 +47,11 @@ class Selenium():
         btn.click()
         self.sleep()        
 
-    def click_by_xpath(self, xpath: str) -> None:
-        btn = self.driver.find_element(by=By.XPATH, value=xpath)
+    def click_by_xpath(self, xpath: str, selected_element: WebDriver = None) -> None:
+        if selected_element:
+            btn = selected_element.find_element(by=By.XPATH, value=str)
+        else:
+            btn = self.driver.find_element(by=By.XPATH, value=xpath)
         btn.click()
         self.sleep()
     
@@ -78,7 +81,13 @@ class Selenium():
             element = selected_element.find_element(by=By.TAG_NAME, value=tag)
         else:
             element = self.driver.find_element(by=By.TAG_NAME, value=tag)
-        #self.sleep()
+        return element
+    
+    def elements_by_tag(self, tag: str, selected_element: WebDriver = None) -> list[FirefoxWebElement]:
+        if selected_element:
+            element = selected_element.find_elements(by=By.TAG_NAME, value=tag)
+        else:
+            element = self.driver.find_elements(by=By.TAG_NAME, value=tag)
         return element
     
     def element_by_xpath(self, xpath: str, selected_element: WebDriver = None) -> FirefoxWebElement:

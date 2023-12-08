@@ -8,5 +8,6 @@ SMART_RECRUITERS_URLS = ['https://jobs.smartrecruiters.com/?keyword=data%20scien
                          'https://jobs.smartrecruiters.com/?keyword=machine%20learning',
                          'https://jobs.smartrecruiters.com/?keyword=data%20science',
                          'https://jobs.smartrecruiters.com/?keyword=data%20analyst',
-                         'https://jobs.smartrecruiters.com/?keyword=AI']
+                         'https://jobs.smartrecruiters.com/?keyword=AI',
+                         'https://jobs.smartrecruiters.com/?keyword=ML']
 CANDIDATE_DATA = './data/candidate_data.yaml'
