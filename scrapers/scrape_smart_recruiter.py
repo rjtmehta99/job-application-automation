@@ -5,6 +5,7 @@ from __future__ import annotations
 from helpers import constants
 import pandas as pd
 from helpers import selenium_helper
+from selenium.common.exceptions import NoSuchElementException
 import logging
 logging.basicConfig(level=logging.WARN)
 
@@ -17,7 +18,10 @@ def scrape(urls: list[str]) -> pd.DataFrame:
     for url in urls:
         logging.warn(f'Scraping {url}')
         selenium = selenium_helper.Selenium(url=url, headless=True)
-        selenium.click_by_id(id_='onetrust-accept-btn-handler')
+        try:
+            selenium.click_by_id(id_='onetrust-accept-btn-handler')
+        except NoSuchElementException:
+            pass
 
         table = selenium.element_by_class(class_='jobs-list')
         rows = selenium.elements_by_class(class_='jobs-item', selected_element=table)

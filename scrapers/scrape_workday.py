@@ -1,55 +1,84 @@
+from __future__ import annotations
 from helpers.selenium_helper import Selenium
+from helpers.selenium_helper import constants
+from helpers.csv_helper import CSVManager
 from selenium.webdriver.common.by import By
+from notifications import notifier
 import pandas as pd
+import yaml
+import logging
+logging.basicConfig(level=logging.WARN)
 
-def scrape_jobs(selenium: Selenium):
-    #table = selenium.element_by_xpath(xpath='//section[@data-automation-id="jobResults"]')
-    #rows = selenium.elements_by_class(class_='css-1q2dra3', selected_element=table)
-    jobs = selenium.driver.find_elements(by=By.XPATH, value='//a[@data-automation-id="jobTitle"]')
-    titles = []
-    urls = []
-    for job in jobs:
-        titles.append(job.text)
-        urls.append(job.get_attribute('href'))
-    return titles, urls
 
-def next_page(selenium: Selenium):
-    # Go to next page
-    page_block = selenium.element_by_xpath(xpath='//nav[@aria-label="pagination"]')
-    pages = selenium.elements_by_tag(tag='li', selected_element=page_block)[1:]
+class WorkdayJobScraper(Selenium):
+    def __init__(self, url, company, csv_path, columns) -> None:
+        super().__init__(url=url)
+        self.company = company
+        self.csv_path = csv_path
+        self.columns = columns
+        self.csv_manager = CSVManager(csv_path, columns)
+
+
+    def scrape_jobs(self) -> tuple[list[str], list[str]]:
+        jobs = self.driver.find_elements(by=By.XPATH, value='//a[@data-automation-id="jobTitle"]')
+        titles = [job.text for job in jobs]
+        urls = [job.get_attribute('href') for job in jobs]
+        return titles, urls
+
+
+    def next_page(self) -> tuple[list[str], list[str]]:
+        page_block = self.element_by_xpath(xpath='//nav[@aria-label="pagination"]')
+        pages = self.elements_by_tag(tag='li', selected_element=page_block)[1:]
+        len(pages)
+        job_titles = []
+        job_urls = []
+
+        for page in pages:
+            self.click_by_xpath(xpath='//button[@data-uxi-widget-type="stepToNextButton"]')
+            titles, urls = self.scrape_jobs()
+            job_titles.extend(titles)
+            job_urls.extend(urls)
+        return job_titles, job_urls
     
-    job_titles = []
-    job_urls = []
 
-    for page in pages:
-        selenium.click_by_xpath(xpath= '//button[@data-uxi-widget-type="paginationPageButton"]')
-        titles, urls = scrape_jobs(selenium=selenium)
+    def save_jobs(self, job_data: dict) -> pd.DataFrame:
+        jobs_df = self.csv_manager.save_jobs(job_data=job_data)
+        return jobs_df
+
+
+    def scrape_workday(self) -> pd.DataFrame:
+        self.click_by_xpath(xpath='//button[@data-automation-id="legalNoticeDeclineButton"]')
+
+        job_titles, job_urls = self.scrape_jobs()
+        job_titles_next_page, job_urls_next_page = self.next_page()
+
+        job_titles.extend(job_titles_next_page)
+        job_urls.extend(job_urls_next_page)
+
+        job_data = {'title': job_titles, 'url': job_urls}
+        jobs_df = self.save_jobs(job_data=job_data)
+        self.quit_driver()
+        return jobs_df
     
-    job_titles.append(titles)
-    job_urls.append(urls)
-    
-    return job_titles, job_urls
 
-def scrape_workday_jobs(URL):
-    selenium = Selenium(url=URL)
-    selenium.click_by_xpath(xpath='//button[@data-automation-id="legalNoticeDeclineButton"]')
-    job_titles = []
-    job_urls = []
+    def notify_new_jobs(self, jobs_df: pd.DataFrame) -> None:
+        unnotified_jobs = jobs_df[jobs_df['notified'] == False]['url'].to_list()        
+        if len(unnotified_jobs) > 0:
+            notifier.notify_jobs(urls=unnotified_jobs)
+            jobs_df.loc[jobs_df['notified'] == False, 'notified'] = True
+            self.csv_manager.save_df_to_csv(df=jobs_df)
+        else:
+            print('No new jobs found')
 
-    titles, urls = scrape_jobs(selenium)
-    job_titles.extend(titles)
-    job_urls.extend(urls)
-
-    titles, urls = next_page(selenium)
-
-    job_titles.extend(titles)
-    job_urls.extend(urls)
-
-    df = pd.DataFrame(data={'job_title': job_titles, 'job_url': job_urls})
-    df.to_csv('workday_jobs.csv', index=False)
-    
-    selenium.quit_driver()
 
 if __name__ == '__main__':
-    URL = 'https://db.wd3.myworkdayjobs.com/en-US/DBWebsite/details/Divisional-Risk-and-Control-Analyst--d-m-w-_R0263735?q=data+science&Country=dcc5b7608d8644b3a93716604e78e995&workerSubType=645e861bc53a015625eefdaefb3a1909'
-    scrape_workday_jobs(URL)
+    with open(constants.WORKDAY_DATA, 'r') as file:
+        workday_data = yaml.safe_load(file)
+    
+    for data in workday_data['workday_companies']:
+        scraper = WorkdayJobScraper(company=data['company_name'], 
+                                    url=data['url'], 
+                                    csv_path=data['csv_path'],
+                                    columns=data['columns'])
+        jobs_df = scraper.scrape_workday()
+        scraper.notify_new_jobs(jobs_df=jobs_df)

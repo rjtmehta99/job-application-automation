@@ -49,7 +49,7 @@ class Selenium():
 
     def click_by_xpath(self, xpath: str, selected_element: WebDriver = None) -> None:
         if selected_element:
-            btn = selected_element.find_element(by=By.XPATH, value=str)
+            btn = selected_element.find_element(by=By.XPATH, value=xpath)
         else:
             btn = self.driver.find_element(by=By.XPATH, value=xpath)
         btn.click()

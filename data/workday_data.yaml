@@ -1,0 +1,5 @@
+workday_companies:
+  - company_name: 'Deutsche Bank'
+    url: 'https://db.wd3.myworkdayjobs.com/en-US/DBWebsite/details/Divisional-Risk-and-Control-Analyst--d-m-w-_R0263735?q=data+science&Country=dcc5b7608d8644b3a93716604e78e995&workerSubType=645e861bc53a015625eefdaefb3a1909'
+    csv_path: './data/workday_deutsche_bank.csv'
+    columns: ['title', 'url', 'notified']

@@ -10,20 +10,22 @@ def open_urls(args: str, urls: list[str]|str) -> None:
     else:
         webbrowser.open(urls)
 
-def notify_application_success(job_args, urls) -> None:
+
+def notify_application_success(job_args: dict[str], urls: str) -> None:
     toast(title='Application Sent Successfully!',
           body=f'{job_args["POSITION"]} at {job_args["COMPANY_NAME"]}.\nClick to view application.',
           on_click= lambda args: open_urls(args, urls),
           scenario='incomingCall')
 
-def notify_application_failure(job_args) -> None:
+
+def notify_application_failure(job_args: dict[str]) -> None:
     toast(title='Application Failed, Check Browser!',
           body=f'{job_args["POSITION"]} at {job_args["COMPANY_NAME"]}',
           scenario='incomingCall')
 
 
-def notify_jobs(urls: list[str]) -> None:
-    toast(title='Relevant Jobs Found!', 
+def notify_jobs(company: str, urls: list[str]) -> None:
+    toast(title=f'Relevant Jobs Found at {company}!', 
           body='Click to open jobs',
           on_click= lambda args: open_urls(args, urls),
           scenario='incomingCall')

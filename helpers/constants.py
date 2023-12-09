@@ -11,3 +11,5 @@ SMART_RECRUITERS_URLS = ['https://jobs.smartrecruiters.com/?keyword=data%20scien
                          'https://jobs.smartrecruiters.com/?keyword=AI',
                          'https://jobs.smartrecruiters.com/?keyword=ML']
 CANDIDATE_DATA = './data/candidate_data.yaml'
+
+WORKDAY_DATA = './data/workday_data.yaml'

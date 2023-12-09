@@ -1,6 +1,7 @@
 __pycache__/
 data/cover_letter.txt
-data/smart_recruiters_jobs.csv
+data/*.csv
+scrapers/scrape_workday_2.py
 data/bot_icon.ico
 *.log
 logger.py
