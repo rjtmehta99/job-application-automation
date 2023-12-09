@@ -3,6 +3,7 @@ from helpers.selenium_helper import Selenium
 from helpers.selenium_helper import constants
 from helpers.csv_helper import CSVManager
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 from notifications import notifier
 import pandas as pd
 import yaml
@@ -11,16 +12,17 @@ logging.basicConfig(level=logging.WARN)
 
 
 class WorkdayJobScraper(Selenium):
-    def __init__(self, url, company, csv_path, columns) -> None:
-        super().__init__(url=url)
+    def __init__(self, url, company, csv_path) -> None:
+        super().__init__(url=url, headless=True)
         self.company = company
         self.csv_path = csv_path
-        self.columns = columns
-        self.csv_manager = CSVManager(csv_path, columns)
+        self.columns = constants.WORKDAY_COLUMNS
+        self.csv_manager = CSVManager(csv_path=csv_path, columns=self.columns)
 
 
     def scrape_jobs(self) -> tuple[list[str], list[str]]:
-        jobs = self.driver.find_elements(by=By.XPATH, value='//a[@data-automation-id="jobTitle"]')
+        jobs = self.driver.find_elements(by=By.XPATH, 
+                                         value='//a[@data-automation-id="jobTitle"]')
         titles = [job.text for job in jobs]
         urls = [job.get_attribute('href') for job in jobs]
         return titles, urls
@@ -47,10 +49,18 @@ class WorkdayJobScraper(Selenium):
 
 
     def scrape_workday(self) -> pd.DataFrame:
-        self.click_by_xpath(xpath='//button[@data-automation-id="legalNoticeDeclineButton"]')
+        try:
+            self.click_by_xpath(xpath='//button[@data-automation-id="legalNoticeDeclineButton"]')
+        except NoSuchElementException:
+            # No Legal Notice Button Found
+            pass
 
         job_titles, job_urls = self.scrape_jobs()
-        job_titles_next_page, job_urls_next_page = self.next_page()
+        try:
+            job_titles_next_page, job_urls_next_page = self.next_page()
+        except NoSuchElementException:
+            # No pagination on website
+            pass
 
         job_titles.extend(job_titles_next_page)
         job_urls.extend(job_urls_next_page)
@@ -64,7 +74,7 @@ class WorkdayJobScraper(Selenium):
     def notify_new_jobs(self, jobs_df: pd.DataFrame) -> None:
         unnotified_jobs = jobs_df[jobs_df['notified'] == False]['url'].to_list()        
         if len(unnotified_jobs) > 0:
-            notifier.notify_jobs(urls=unnotified_jobs)
+            notifier.notify_jobs(company=self.company, urls=unnotified_jobs)
             jobs_df.loc[jobs_df['notified'] == False, 'notified'] = True
             self.csv_manager.save_df_to_csv(df=jobs_df)
         else:
@@ -76,9 +86,9 @@ if __name__ == '__main__':
         workday_data = yaml.safe_load(file)
     
     for data in workday_data['workday_companies']:
+        logging.warning(f'Scraping Workday for {data["company_name"]}')
         scraper = WorkdayJobScraper(company=data['company_name'], 
                                     url=data['url'], 
-                                    csv_path=data['csv_path'],
-                                    columns=data['columns'])
+                                    csv_path=data['csv_path'])
         jobs_df = scraper.scrape_workday()
         scraper.notify_new_jobs(jobs_df=jobs_df)

@@ -2,4 +2,27 @@ workday_companies:
   - company_name: 'Deutsche Bank'
     url: 'https://db.wd3.myworkdayjobs.com/en-US/DBWebsite/details/Divisional-Risk-and-Control-Analyst--d-m-w-_R0263735?q=data+science&Country=dcc5b7608d8644b3a93716604e78e995&workerSubType=645e861bc53a015625eefdaefb3a1909'
     csv_path: './data/workday_deutsche_bank.csv'
-    columns: ['title', 'url', 'notified']
+
+  - company_name: 'CrowdStrike'
+    url: 'https://crowdstrike.wd5.myworkdayjobs.com/en-US/crowdstrikecareers?locationCountry=dcc5b7608d8644b3a93716604e78e995&locations=27086a67c2690139d0d689214001bb08'
+    csv_path: './data/workday_crowdstrike.csv'
+
+  - company_name: 'Samsung'
+    url: 'https://sec.wd3.myworkdayjobs.com/Samsung_Careers?q=data%20science&locations=189767dd6c92011307d62486a529d87b&locations=39065a4e567f0126a5c0e8b862498003&locations=189767dd6c9201ea65ab1287a5290b7d&locations=270725556edc0105ce06612aaaa80000'
+    csv_path: './data/workday_samsung.csv'
+
+  - company_name: 'Activision'
+    url: 'https://activision.wd1.myworkdayjobs.com/en-US/King_External_Careers?q=data%20science&locationCountry=dcc5b7608d8644b3a93716604e78e995'
+    csv_path: './data/workday_activision.csv'
+
+  - company_name: 'Autodesk'
+    url: 'https://autodesk.wd1.myworkdayjobs.com/en-US/Ext?q=data%20science&redirect=/en-US/Ext/job/London%252C-GBR/AI-Research-Scientist_23WD72790-1/apply/autofillWithResume?src=JB-10065&source=LinkedIn&locationCountry=dcc5b7608d8644b3a93716604e78e995'
+    csv_path: './data/workday_autodesk.csv'
+
+  - company_name: 'Zeiss'
+    url: 'https://zeissgroup.wd3.myworkdayjobs.com/External?q=data%20scientist&locations=b307280ba9fc01edfd4c9ccffb00b92f&locations=b307280ba9fc016c139d94cffb00a02f&locations=b307280ba9fc01e0178f95cffb00a52f&locations=b307280ba9fc014cd27e96cffb00aa2f&locations=d3da16d53a28018e3c9e12a7a00116a0&locations=b307280ba9fc01d4d1748bcffb008c2f&locations=d3da16d53a2801bbff060da7a00102a0&locations=b307280ba9fc01e795c47ccffb005a2f&locations=b307280ba9fc01cf428b7acffb00502f&locations=d3da16d53a2801918f1000a7a001d59f&timeType=f72e5c6f01be10ccedcacb169aff1fff&workerSubType=971a21f0f13710cffbbc743b943fe84d'
+    csv_path: './data/workday_zeiss.csv'
+
+  - company_name: 'Gartner'
+    url: 'https://gartner.wd5.myworkdayjobs.com/en-US/EXT?q=data&redirect=/EXT/job/Remote---United-Kingdom/Financial-Data-and-Analytics-Expert--Remote-EMEA_81341/apply?source=JB-10120&locationCountry=dcc5b7608d8644b3a93716604e78e995'
+    csv_path: './data/workday_gartner.csv'

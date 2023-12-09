@@ -1,6 +1,3 @@
-# TODO: parameterize location and company names.
-# TODO: YAML for params in constants.
-# TODO: Apply via LinkedIn automatically, stop at other questions.
 from __future__ import annotations
 from helpers import constants
 import pandas as pd
@@ -14,9 +11,9 @@ def scrape(urls: list[str]) -> pd.DataFrame:
     positions = []
     companies = []
     locations = []
-
+    
     for url in urls:
-        logging.warn(f'Scraping {url}')
+        logging.warning(f'Scraping {url}')
         selenium = selenium_helper.Selenium(url=url, headless=True)
         try:
             selenium.click_by_id(id_='onetrust-accept-btn-handler')

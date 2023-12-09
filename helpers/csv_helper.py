@@ -4,11 +4,11 @@ import logging
 logging.basicConfig(level=logging.WARN)
 
 class CSVManager:
-    def __init__(self, csv_path, columns):
+    def __init__(self, csv_path: str, columns: list[str] = []):
         self.csv_path = csv_path
         self.columns = columns
 
-    def load_previous_csv(self):
+    def load_previous_csv(self) -> pd.DataFrame:
         try:
             previous_df = pd.read_csv(self.csv_path)
         except FileNotFoundError:

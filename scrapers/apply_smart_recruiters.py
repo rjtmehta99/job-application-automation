@@ -7,6 +7,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from cv_resume_generator.render_cover_letter import render_cover_letter
+import logging
+logging.basicConfig(level=logging.WARN)
 
 with open(constants.CANDIDATE_DATA, 'r') as file:
     candidate_data = yaml.safe_load(file)
@@ -14,9 +16,16 @@ with open(constants.CANDIDATE_DATA, 'r') as file:
 def apply(url: str) -> None:
     #URL = 'https://jobs.smartrecruiters.com/HitachiSolutions/743999948479923-machine-learning-ai-engineer-m-w-d-'
     selenium = selenium_helper.Selenium(url=url)
-
+    
     # Click on apply / jetzt bewerben
-    selenium.click_by_id('st-apply')
+    try:
+        try:
+            selenium.click_by_id('st-apply')
+        except NoSuchElementException:
+            selenium.click_btn_by_text('Apply now!')
+    except NoSuchElementException:
+        logging.warn(' Click on apply failed, continuing applier')
+    
     # Reject Cookies
     try:
         selenium.click_by_id(id_='onetrust-reject-all-handler')
