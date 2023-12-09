@@ -24,3 +24,8 @@ Will support Canva soon.
 2. Develop a Chrome extension to trigger applier.
 3. Match JD with resume, apply if score > threshold.
 4. Get areas/domains the selected company specializes in.
+
+## Disclaimer
+- This project is a hobby project as a student and the author does not own, claim to own, or aims to infringe any trademarks or abuse terms of use.
+- All copyrights, trademarks owned by the respective companies.
+- Please scrape responsibly, do not overload the websites.
