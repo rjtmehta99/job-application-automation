@@ -26,3 +26,43 @@ workday_companies:
   - company_name: 'Gartner'
     url: 'https://gartner.wd5.myworkdayjobs.com/en-US/EXT?q=data&redirect=/EXT/job/Remote---United-Kingdom/Financial-Data-and-Analytics-Expert--Remote-EMEA_81341/apply?source=JB-10120&locationCountry=dcc5b7608d8644b3a93716604e78e995'
     csv_path: './data/workday_gartner.csv'
+
+  - company_name: 'Airbus'
+    url: 'https://ag.wd3.myworkdayjobs.com/en-US/Airbus?q=data%20science&locationCountry=dcc5b7608d8644b3a93716604e78e995&FullPartTime=70a157281071017ad8c0ee4170448100&workerSubType=f5811cef9cb501a69768a71d470a6d15&locations=f5811cef9cb501e0d621ee684c0a1444&locations=f5811cef9cb501505ee2ac6a4c0aff49&locations=f5811cef9cb501b327399e684c0a0143&locations=f5811cef9cb501a49eac0a694c0a8244'
+    csv_path: './data/workday_airbus.csv'
+
+  - company_name: 'SoundCloud'
+    url: 'https://soundcloud.wd3.myworkdayjobs.com/en-US/SCC/details/Director-of-Engineering--Music-Discovery_JR100054?q=data%20science&locations=7d554836b5a410215d5f70bac7a10000'
+    csv_path: './data/workday_soundcloud.csv'
+  
+  - company_name: 'NVIDIA'
+    url: 'https://nvidia.wd5.myworkdayjobs.com/en-US/NVIDIAExternalCareerSite/jobs?q=data&locationHierarchy1=2fcb99c455831013ea52adc65f5d3254&locationHierarchy2=0c3f5f117e9a0101f6422f0fe79d0000&locationHierarchy2=0c3f5f117e9a0101f63dc469c3010000&workerSubType=0c40f6bd1d8f10adf6dae161b1844a15&workerSubType=ab40a98049581037a3ada55b087049b7'
+    csv_path: './data/workday_nvidia.csv'
+
+  - company_name: 'NVIDIA'
+    url: 'https://nvidia.wd5.myworkdayjobs.com/en-US/NVIDIAExternalCareerSite/jobs?q=python&locationHierarchy1=2fcb99c455831013ea52adc65f5d3254&locationHierarchy2=0c3f5f117e9a0101f6422f0fe79d0000&locationHierarchy2=0c3f5f117e9a0101f63dc469c3010000&workerSubType=0c40f6bd1d8f10adf6dae161b1844a15&workerSubType=ab40a98049581037a3ada55b087049b7'
+    csv_path: './data/workday_nvidia.csv'
+
+  - company_name: 'Fresenius'
+    url: 'https://freseniusmedicalcare.wd3.myworkdayjobs.com/fme?q=data%20scientist&locationCountry=dcc5b7608d8644b3a93716604e78e995&workerSubType=1bce55c0f54101ffd24354dc4434ad10'
+    csv_path: './data/workday_fresenius.csv'
+
+  - company_name: 'Boeing'
+    url: 'https://boeing.wd1.myworkdayjobs.com/en-US/external_subsidiary?q=data%20science&locations=8b618a30e00f0164a19b4e4b1b3fd083&locations=8b618a30e00f017c40ba5e4b1b3f1184&locations=8b618a30e00f014d88e7762e1a3fd181&locations=8b618a30e00f019359d3752e1a3fcc81&locations=8b618a30e00f018c16196b4b1b3f4884&locations=8b618a30e00f01fcbdbf742e1a3fc781&workerSubType=8b618a30e00f0133c395e8650c3fc307'
+    csv_path: './data/workday_boeing.csv'
+  
+  - company_name: 'GfK'
+    url: 'https://gfk.wd3.myworkdayjobs.com/en-US/Corporate_Careers?q=data%20science&Location_Country=dcc5b7608d8644b3a93716604e78e995&timeType=0c3f50f3efa401fbca143e97f5207500'
+    csv_path: './data/workday_gfk.csv'
+
+  - company_name: 'GfK'
+    url: 'https://gfk.wd3.myworkdayjobs.com/en-US/Corporate_Careers?q=python&Location_Country=dcc5b7608d8644b3a93716604e78e995&timeType=0c3f50f3efa401fbca143e97f5207500'
+    csv_path: './data/workday_gfk.csv'
+
+  - company_name: 'Salesforce'
+    url: 'https://salesforce.wd12.myworkdayjobs.com/en-US/External_Career_Site?q=python&locations=2c2bf80869591012453ab08dba880000&locations=1038e944b1101012453f461077b70000&locations=1038e944b1101012453d1b6a160c0000&locations=1038e944b1101012453d229d37840000&locations=455e7aca8e1f1001a60ef1fb6bc50000'
+    csv_path: './data/workday_salesforce.csv'
+  
+  - company_name: 'Freudenberg'
+    url: 'https://freudenberg.wd3.myworkdayjobs.com/en-US/freudenberg-group/jobs?q=python&locationCountry=dcc5b7608d8644b3a93716604e78e995'
+    csv_path: './data/workday_freudenberg.csv'

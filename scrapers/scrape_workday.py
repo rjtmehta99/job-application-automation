@@ -18,6 +18,7 @@ class WorkdayJobScraper(Selenium):
         self.csv_path = csv_path
         self.columns = constants.WORKDAY_COLUMNS
         self.csv_manager = CSVManager(csv_path=csv_path, columns=self.columns)
+        self.sleep(duration=5.0)
 
 
     def scrape_jobs(self) -> tuple[list[str], list[str]]:
