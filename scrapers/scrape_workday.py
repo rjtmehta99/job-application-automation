@@ -19,7 +19,7 @@ class WorkdayJobScraper(Selenium):
         self.columns = constants.WORKDAY_COLUMNS
         self.csv_manager = CSVManager(csv_path=csv_path, columns=self.columns)
         self.sleep(duration=5.0)
-
+    
 
     def scrape_jobs(self) -> tuple[list[str], list[str]]:
         jobs = self.driver.find_elements(by=By.XPATH, 
@@ -50,6 +50,8 @@ class WorkdayJobScraper(Selenium):
 
 
     def scrape_workday(self) -> pd.DataFrame:
+        logging.warning(f'Scraping Workday for {self.company}')
+
         try:
             self.click_by_xpath(xpath='//button[@data-automation-id="legalNoticeDeclineButton"]')
         except NoSuchElementException:
