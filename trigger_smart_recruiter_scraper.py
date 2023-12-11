@@ -1,6 +1,6 @@
 from notifications import notifier
 from scrapers import scrape_smart_recruiter
-from helpers import csv_helper, constants
+from helpers import constants
 
 company = 'Smart Recruiters'
 jobs_df = scrape_smart_recruiter.scrape(constants.SMART_RECRUITERS_URLS)

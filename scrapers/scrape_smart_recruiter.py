@@ -15,6 +15,7 @@ def scrape(urls: list[str]) -> pd.DataFrame:
     for url in urls:
         logging.warning(f'Scraping {url}')
         selenium = selenium_helper.Selenium(url=url, headless=True)
+        selenium.sleep(10.0)
         try:
             selenium.click_by_id(id_='onetrust-accept-btn-handler')
         except NoSuchElementException:

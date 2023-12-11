@@ -8,7 +8,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 #from selenium.webdriver.firefox.webelement import FirefoxWebElement
 from selenium.webdriver.support import expected_conditions as EC
 #from webdriver_manager.firefox import GeckoDriverManager
-
+from random import randint
 
 class Selenium():
     def __init__(self, url: str, headless: bool = False) -> None:
@@ -41,7 +41,9 @@ class Selenium():
         except:
             print('[ERROR] Element not loaded error')
 
-    def sleep(self, duration: float = 2.0):
+    def sleep(self, duration: float = 4.0):
+        if duration > 1:
+            duration = randint(4, 6)
         time.sleep(duration)
 
     def click_btn_by_text(self, text: str) -> None:
@@ -105,14 +107,15 @@ class Selenium():
 
     def send_keys_by_id(self, id_: str, key: str) -> None:
         element = self.driver.find_element(by=By.ID, value=id_)
-        element.send_keys(key)
-        self.sleep()
+        for char in key:
+            element.send_keys(char)
+            self.sleep(duration=1)
 
     def send_keys_by_xpath(self, xpath: str, keys: list[str]) -> None:
         element = self.driver.find_element(by=By.XPATH, value=xpath)
         for key in keys:
             element.send_keys(key)
-            self.sleep(duration=4)
+            self.sleep()
 
     def upload_file_by_css(self, css_selector: str, file_path: str) -> None:
         '''
