@@ -18,7 +18,7 @@ class WorkdayJobScraper(Selenium):
         self.csv_path = csv_path
         self.columns = constants.WORKDAY_COLUMNS
         self.csv_manager = CSVManager(csv_path=csv_path, columns=self.columns)
-        self.sleep(duration=5.0)
+        self.sleep(duration=10.0)
     
 
     def scrape_jobs(self) -> tuple[list[str], list[str]]:
@@ -80,8 +80,6 @@ class WorkdayJobScraper(Selenium):
             notifier.notify_jobs(company=self.company, urls=unnotified_jobs)
             jobs_df.loc[jobs_df['notified'] == False, 'notified'] = True
             self.csv_manager.save_df_to_csv(df=jobs_df)
-        else:
-            print('No new jobs found')
 
 
 if __name__ == '__main__':

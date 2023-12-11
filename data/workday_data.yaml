@@ -1,4 +1,8 @@
 workday_companies:
+  - company_name: 'Delivery Hero'
+    url: 'https://deliveryhero.wd3.myworkdayjobs.com/en-US/DH?q=data%20science&locations=dd8bd6e8ef5e01f0b31a22394e012004&jobFamilyGroup=ef2e8d3982de010dd4be36e9d1161500&jobFamilyGroup=74446f87526f01f6255af7080e243d13&jobFamilyGroup=ef2e8d3982de01cea74d59c3d1160900'
+    csv_path: './data/workday_deliveryhero.csv'
+  
   - company_name: 'Deutsche Bank'
     url: 'https://db.wd3.myworkdayjobs.com/en-US/DBWebsite/details/Divisional-Risk-and-Control-Analyst--d-m-w-_R0263735?q=data+science&Country=dcc5b7608d8644b3a93716604e78e995&workerSubType=645e861bc53a015625eefdaefb3a1909'
     csv_path: './data/workday_deutsche_bank.csv'

@@ -5,17 +5,19 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.firefox.webelement import FirefoxWebElement
+#from selenium.webdriver.firefox.webelement import FirefoxWebElement
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.firefox import GeckoDriverManager
+#from webdriver_manager.firefox import GeckoDriverManager
 
 
 class Selenium():
     def __init__(self, url: str, headless: bool = False) -> None:
         self.url = url
         options = webdriver.FirefoxOptions()
-        options.headless = headless
-        self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
+        if headless:
+            options.add_argument('-headless')
+        #self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
+        self.driver = webdriver.Firefox(options=options)
         self.driver.get(url)
         self.sleep()
 
@@ -60,7 +62,7 @@ class Selenium():
         btn.click()
         self.sleep()
 
-    def element_by_class(self, class_: str, selected_element: WebDriver = None) -> FirefoxWebElement:
+    def element_by_class(self, class_: str, selected_element: WebDriver = None):
         if selected_element:
             element = selected_element.find_element(by=By.CLASS_NAME, value=class_)
         else:
@@ -68,7 +70,7 @@ class Selenium():
         self.sleep()
         return element
 
-    def elements_by_class(self, class_: str, selected_element: WebDriver = None) -> list[FirefoxWebElement]:
+    def elements_by_class(self, class_: str, selected_element: WebDriver = None):
         if selected_element:
             elements = selected_element.find_elements(by=By.CLASS_NAME, value=class_)
         else:
@@ -76,21 +78,21 @@ class Selenium():
         self.sleep()
         return elements
     
-    def element_by_tag(self, tag: str, selected_element: WebDriver = None) -> FirefoxWebElement:
+    def element_by_tag(self, tag: str, selected_element: WebDriver = None):
         if selected_element:
             element = selected_element.find_element(by=By.TAG_NAME, value=tag)
         else:
             element = self.driver.find_element(by=By.TAG_NAME, value=tag)
         return element
     
-    def elements_by_tag(self, tag: str, selected_element: WebDriver = None) -> list[FirefoxWebElement]:
+    def elements_by_tag(self, tag: str, selected_element: WebDriver = None):
         if selected_element:
             element = selected_element.find_elements(by=By.TAG_NAME, value=tag)
         else:
             element = self.driver.find_elements(by=By.TAG_NAME, value=tag)
         return element
     
-    def element_by_xpath(self, xpath: str, selected_element: WebDriver = None) -> FirefoxWebElement:
+    def element_by_xpath(self, xpath: str, selected_element: WebDriver = None):
         if selected_element:
             element = selected_element.find_element(by=By.XPATH, value=xpath)
         else:
