@@ -1,14 +1,13 @@
 from __future__ import annotations
 import re
 import yaml
-from helpers.selenium_helper import Selenium
+import logging
 from helpers import constants
 from notifications import notifier
-from selenium.webdriver.common.by import By
+from helpers.selenium_helper import Selenium
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from cv_resume_generator.render_cover_letter import render_cover_letter
-import logging
 logging.basicConfig(level=logging.WARN)
 
 class SmartRecruiterApplier(Selenium):
@@ -17,9 +16,6 @@ class SmartRecruiterApplier(Selenium):
         # Load candidate data
         with open(constants.CANDIDATE_DATA, 'r') as file:
             self.candidate_data = yaml.safe_load(file)
-
-        #self.candidate_data = candidate_data
-        #self.resume = resume
     
     def clear_and_fill_info(self):
         # All information is first cleared, then entered from the YAML file.

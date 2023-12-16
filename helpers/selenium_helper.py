@@ -5,9 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.firefox.webdriver import WebDriver
-#from selenium.webdriver.firefox.webelement import FirefoxWebElement
 from selenium.webdriver.support import expected_conditions as EC
-#from webdriver_manager.firefox import GeckoDriverManager
 from random import randint
 
 class Selenium():
@@ -16,7 +14,6 @@ class Selenium():
         options = webdriver.FirefoxOptions()
         if headless:
             options.add_argument('-headless')
-        #self.driver = webdriver.Firefox(executable_path=GeckoDriverManager().install(), options=options)
         self.driver = webdriver.Firefox(options=options)
         self.driver.get(url)
         self.sleep()

@@ -37,10 +37,11 @@ def scrape(urls: list[str]) -> pd.DataFrame:
             location_match = list(filter(lambda word: word in constants.LOCATION_CRITERIA, location.lower().split()))
 
             if (len(company_match) or len(location_match)) > 0:
-                job_urls.append(job_url)
-                positions.append(position)
-                companies.append(company)
-                locations.append(location)
+                if company not in constants.BLACKLISTED_COMPANIES:
+                    job_urls.append(job_url)
+                    positions.append(position)
+                    companies.append(company)
+                    locations.append(location)
         selenium.quit_driver()
     
     try:
@@ -50,7 +51,6 @@ def scrape(urls: list[str]) -> pd.DataFrame:
     
     current_df = pd.DataFrame(data={'position': positions, 'company': companies, 
                                     'location': locations, 'url': job_urls})
-    #current_df.to_csv('current_df.csv', index=False)
     current_df['notified'] = False
     merged_df = pd.concat([current_df, previous_df])
     merged_df = merged_df.drop_duplicates(subset=['url'], keep='last').reset_index(drop=True)
