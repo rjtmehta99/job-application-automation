@@ -11,4 +11,3 @@ python_files = [data[key]['python_file'] for key in data.keys()]
 for py_file in python_files:
     imported_file = importlib.import_module(name=py_file)
     imported_file.scrape()
-    break

@@ -18,8 +18,10 @@ def scrape():
     
     for keyword in keywords:
         logging.warning(f' Searching jobs for keyword: {keyword}')        
+
         try:
             for page in range(pages):
+
                 try:
                     rendered_url = scraper.render_url(company_url, keyword=keyword, page=page)
                     
@@ -35,9 +37,11 @@ def scrape():
                     locations.extend(locations_page)
                     urls.extend(urls_page)
                     time.sleep(3)
+
                 # If page does not exists
                 except:
                     break
+
         # If no jobs for the keyword
         except:
             continue
