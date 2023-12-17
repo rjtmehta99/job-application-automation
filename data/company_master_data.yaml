@@ -13,3 +13,12 @@ BMW:
   columns: ['title', 'url', 'location', 'notified']
   keywords: ['data%20science', 'data%20scientist', 'AI', 'NLP', 'python']
   job_count: 50
+
+SAP:
+  url: 'https://jobs.sap.com/search/?q={{keyword}}&optionsFacetsDD_customfield3={{level}}&optionsFacetsDD_country=DE&scrollToTable=true{{query}}'
+  python_file: 'scrapers.scrape_sap'
+  csv_path: './data/jobs_sap.csv'
+  columns: ['title', 'url', 'notified']
+  keywords: ['data+science', 'data', 'python']
+  levels: ['Professional', 'Graduate']
+  next_page_queries: ['&startrow=0', '&startrow=25', '&startrow=50']
