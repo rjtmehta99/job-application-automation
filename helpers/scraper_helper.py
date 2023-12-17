@@ -3,7 +3,8 @@ import requests
 import pandas as pd
 from jinja2 import Template
 from bs4 import BeautifulSoup
-from helpers import notifier, constants
+from helpers import constants
+from notifications import notifier
 
 class ScraperHelper:
     def __init__(self, company_name: str):
@@ -28,11 +29,11 @@ class ScraperHelper:
         rendered_url = template.render(**template_args)
         return rendered_url
 
-    def notify_new_jobs(self, jobs_df: pd.DataFrame) -> None:
+    def notify_new_jobs(self, jobs_df: pd.DataFrame, csv_path: str) -> None:
         # Notifies user about new and unnotified jobs 
         # Also saves event info about jobs that were notified. 
         unnotified_jobs = jobs_df[jobs_df['notified'] == False]['url'].to_list()        
         if len(unnotified_jobs) > 0:
             notifier.notify_jobs(company=self.company_name, urls=unnotified_jobs)
             jobs_df.loc[jobs_df['notified'] == False, 'notified'] = True
-            jobs_df.to_csv(self.csv_path, index=False)
+            jobs_df.to_csv(csv_path, index=False)

@@ -17,7 +17,3 @@ SMART_RECRUITERS_JOBS = './data/smart_recruiters_jobs.csv'
 WORKDAY_COLUMNS = ['title', 'url', 'notified']
 
 COMPANY_MASTER_DATA = './data/company_master_data.yaml'
-
-MUNICHRE_JOBS_CSV = './data/munich_re.csv'
-MUNICHRE_KEYWORDS = ['python', r'data%20analyst', r'data%20science']
-MUNICHRE_PAGE_RANGE = 5
