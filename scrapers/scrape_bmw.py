@@ -27,7 +27,9 @@ def scrape():
             locations_page = body.find_all('div', attrs={'class': 'grp-jobfinder-cell-location'})
             locations_page = [location.text for location in locations_page]
             urls_page = body.find_all('a', attrs={'class': 'grp-popup-lnk grp-popup-jobdescription'})
-            urls_page = [url['href'] for url in urls_page]
+            # Add base URL to href
+            base_url = 'https://www.bmwgroup.jobs'
+            urls_page = [base_url+url['href'] for url in urls_page]
 
             titles.extend(titles_page)
             locations.extend(locations_page)
