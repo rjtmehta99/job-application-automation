@@ -5,10 +5,13 @@ from jinja2 import Template
 from bs4 import BeautifulSoup
 from helpers import constants
 from notifications import notifier
+import logging
+logging.basicConfig(level=logging.WARN)
 
 class ScraperHelper:
     def __init__(self, company_name: str):
         self.company_name = company_name
+        logging.warning(f' Scraping {self.company_name} jobs')
     
     def get_html_body(self, rendered_url: str) -> BeautifulSoup:
         response = requests.request("GET", rendered_url)

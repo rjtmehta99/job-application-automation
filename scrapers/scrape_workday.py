@@ -50,7 +50,7 @@ class WorkdayJobScraper(Selenium):
 
 
     def scrape_workday(self) -> pd.DataFrame:
-        logging.warning(f'Scraping Workday for {self.company}')
+        logging.warning(f' Scraping Workday for {self.company}')
 
         try:
             self.click_by_xpath(xpath='//button[@data-automation-id="legalNoticeDeclineButton"]')

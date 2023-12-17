@@ -1,26 +1,8 @@
-import yaml
 import time
-from jinja2 import Template
-from helpers import constants
 from helpers.csv_helper import CSVManager
 from helpers.scraper_helper import ScraperHelper
 
-def load_company_info(company_name: str):
-    # From the company master data yaml, returns all data for the company_name
-    with open(constants.COMPANY_MASTER_DATA, 'r') as file:
-        master_data = yaml.safe_load(file)
-    company_data = master_data.get(company_name)
-    return company_data
-
-def render_url(url: str, **template_args):
-    # Renders the specified params into the URL. 
-    # These params can be keywords, page number, job count etc. 
-    template = Template(url)
-    rendered_url = template.render(**template_args)
-    return rendered_url
-
 def scrape():
-    print('Scraping Munich Re')
     scraper = ScraperHelper(company_name='MunichRe')
     #company_data = load_company_info(company_name='MunichRe')
     company_data = scraper.load_company_info()
@@ -40,8 +22,6 @@ def scrape():
                     rendered_url = scraper.render_url(company_url, keyword=keyword, page=page)
     
                     body = scraper.get_html_body(rendered_url)
-                    #response = requests.request("GET", rendered_url)
-                    #body = BeautifulSoup(response.content, 'html.parser')                
                     titles_page = body.find_all('span', attrs={'class': 'card-header__job-position'})[1:]
                     locations_page = body.find_all('span', attrs={'class': 'card-header__job-place'})[1:]
                     urls_page = body.find_all('a', attrs={'class': 'button mre lightbox-trigger job-link-open'})
