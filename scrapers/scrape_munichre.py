@@ -1,19 +1,47 @@
+import yaml
 import time
-import requests
-from bs4 import BeautifulSoup
+from jinja2 import Template
 from helpers import constants
 from helpers.csv_helper import CSVManager
+from helpers.scraper_helper import ScraperHelper
 
-def scrape():    
+
+def load_company_info(company_name: str):
+    # From the company master data yaml, returns all data for the company_name
+    with open(constants.COMPANY_MASTER_DATA, 'r') as file:
+        master_data = yaml.safe_load(file)
+    company_data = master_data.get(company_name)
+    return company_data
+
+def render_url(url: str, **template_args):
+    # Renders the specified params into the URL. 
+    # These params can be keywords, page number, job count etc. 
+    template = Template(url)
+    rendered_url = template.render(**template_args)
+    return rendered_url
+
+def scrape():
+    scraper = ScraperHelper(company_name='MunichRe')
+    #company_data = load_company_info(company_name='MunichRe')
+    company_data = scraper.load_company_info()
+    
+    company_url = company_data['url']
+    keywords = company_data['keywords']
+    pages = company_data['pages']
+    csv_path = company_data['csv_path']
+    columns = company_data['columns']
+    
     titles, urls, locations = [], [], []
-    for keyword in constants.MUNICHRE_KEYWORDS:
+    
+    for keyword in keywords:
         try:
-            for page in range(constants.MUNICHRE_PAGE_RANGE):
+            for page in range(pages):
                 try:
-                    url = f'https://munichre-jobs.com/api/list/Job?template=MunichRe&sortitem=id&sortdirection=DESC&format=cards&lang=en&widget=0&filter[company.id]=[1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%2C9%2C27%2C29%2C31%2C32%2C33%2C51%2C52%2C53%2C54%2C55%2C56%2C57%2C59%2C60%2C61%2C62%2C63%2C64%2C28%2C69%2C70%2C71%2C68%2C72]&filter[display_language]=en&filter[publication_channel]=careersite&filter[city.id]=[44324%2C43182%2C39117%2C37611]&keyword={keyword}&filter[entry_level.id]=[5%2C6]&sort[id]=DESC&page={page}'
-                    response = requests.request("GET", url)
-                    body = BeautifulSoup(response.content, 'html.parser')
-                
+                    rendered_url = scraper.render_url(company_url, keyword=keyword, page=page)
+    
+                    body = scraper.get_html_body(rendered_url)
+                    #response = requests.request("GET", rendered_url)
+                    #body = BeautifulSoup(response.content, 'html.parser')                
                     titles_page = body.find_all('span', attrs={'class': 'card-header__job-position'})[1:]
                     locations_page = body.find_all('span', attrs={'class': 'card-header__job-place'})[1:]
                     urls_page = body.find_all('a', attrs={'class': 'button mre lightbox-trigger job-link-open'})
@@ -30,10 +58,10 @@ def scrape():
         except:
             continue
 
-    csv_manager = CSVManager(csv_path=constants.MUNICHRE_JOBS_CSV, 
-                            columns=['title', 'url', 'location', 'notified']) 
+    csv_manager = CSVManager(csv_path=csv_path, 
+                            columns=columns) 
     jobs_df = csv_manager.save_jobs(job_data={'title': titles, 'url': urls, 'location': locations})
-    return jobs_df
+    scraper.notify_new_jobs(jobs_df=jobs_df)
 
 if __name__ == '__main__':
     scrape()

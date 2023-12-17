@@ -1,0 +1,14 @@
+MunichRe:
+  python_file: './scrapers/scrape_munichre.py'
+  url: 'https://munichre-jobs.com/api/list/Job?template=MunichRe&sortitem=id&sortdirection=DESC&format=cards&lang=en&widget=0&filter[company.id]=[1%2C2%2C3%2C4%2C5%2C6%2C7%2C8%2C9%2C27%2C29%2C31%2C32%2C33%2C51%2C52%2C53%2C54%2C55%2C56%2C57%2C59%2C60%2C61%2C62%2C63%2C64%2C28%2C69%2C70%2C71%2C68%2C72]&filter[display_language]=en&filter[publication_channel]=careersite&filter[city.id]=[44324%2C43182%2C39117%2C37611]&keyword={{keyword}}&filter[entry_level.id]=[5%2C6]&sort[id]=DESC&page={{page}}'
+  csv_path: './data/jobs_munichre.csv'
+  columns: ['title', 'url', 'location', 'notified']
+  keywords: ['data%20science', 'python', 'data%20scientist', 'NLP']
+  pages: 5
+
+BMW:
+  url: 'https://www.bmwgroup.jobs/de/de/jobs/_jcr_content/par/layoutcontainer_copy_565949652/layoutcontainercontent/jobfinder30_copy.jobfinder_table.content.html/&textSearch={{keyword}}&filterSearch=location_DE,jobType_STANDARD,jobType_GRADUATE_JOB&rowIndex=0&blockCount={{job_count}}'
+  python_file: './scrapers/scrape_bmw.py'
+  csv_path: './data/jobs_bmw.csv'
+  keywords: ['data science', 'data scientist', 'AI', 'NLP', 'python']
+  job_count: 50
