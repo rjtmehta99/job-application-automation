@@ -27,6 +27,9 @@ class CSVManager:
                      .drop_duplicates(subset=['url'], keep='last')
                      .reset_index(drop=True))
         new_jobs = len(merged_df) - len(previous_df)
-        logging.warn(f' {new_jobs} new jobs found\n')
+        if new_jobs > 0:
+            logging.warning(f' {new_jobs} new jobs found\n')
+        else:
+            logging.warning(' No new jobs found')
         self.save_df_to_csv(merged_df)
         return merged_df

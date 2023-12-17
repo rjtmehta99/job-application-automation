@@ -1,10 +1,11 @@
 import time
 from helpers.csv_helper import CSVManager
 from helpers.scraper_helper import ScraperHelper
+import logging
+logging.basicConfig(level=logging.WARN)
 
 def scrape():
     scraper = ScraperHelper(company_name='MunichRe')
-    #company_data = load_company_info(company_name='MunichRe')
     company_data = scraper.load_company_info()
     
     company_url = company_data['url']
@@ -16,21 +17,24 @@ def scrape():
     titles, urls, locations = [], [], []
     
     for keyword in keywords:
+        logging.warning(f' Searching jobs for keyword: {keyword}')        
         try:
             for page in range(pages):
                 try:
                     rendered_url = scraper.render_url(company_url, keyword=keyword, page=page)
-    
+                    
                     body = scraper.get_html_body(rendered_url)
                     titles_page = body.find_all('span', attrs={'class': 'card-header__job-position'})[1:]
+                    titles_page = [title.text for title in titles_page]
                     locations_page = body.find_all('span', attrs={'class': 'card-header__job-place'})[1:]
+                    locations_page = [location.text for location in locations_page]
                     urls_page = body.find_all('a', attrs={'class': 'button mre lightbox-trigger job-link-open'})
                     urls_page = [url['href'] for url in urls_page]
 
                     titles.extend(titles_page)
                     locations.extend(locations_page)
                     urls.extend(urls_page)
-                    time.sleep(2)
+                    time.sleep(3)
                 # If page does not exists
                 except:
                     break
