@@ -25,7 +25,7 @@ def scrape():
                     rendered_url = scraper.render_url(company_url, keyword=keyword, 
                                                       level=level, query=query)
 
-                    body = scraper.get_html_body(rendered_url)
+                    body = scraper.get_html_body(url=rendered_url)
 
                     urls_page = body.find_all('a',
                                               attrs={'class': 'jobTitle-link'})

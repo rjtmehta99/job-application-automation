@@ -13,8 +13,8 @@ class ScraperHelper:
         self.company_name = company_name
         logging.warning(f' Scraping {self.company_name} jobs')
     
-    def get_html_body(self, rendered_url: str) -> BeautifulSoup:
-        response = requests.request("GET", rendered_url)
+    def get_html_body(self, url: str) -> BeautifulSoup:
+        response = requests.request("GET", url)
         body = BeautifulSoup(response.content, 'html.parser')
         return body
 

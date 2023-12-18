@@ -17,3 +17,5 @@ SMART_RECRUITERS_JOBS = './data/smart_recruiters_jobs.csv'
 WORKDAY_COLUMNS = ['title', 'url', 'notified']
 
 COMPANY_MASTER_DATA = './data/company_master_data.yaml'
+GREENHOUSE_DATA = './data/greenhouse_data.yaml'
+GH_BASE_URL = 'https://boards.greenhouse.io'

@@ -21,7 +21,7 @@ def scrape():
         try:
             rendered_url = scraper.render_url(company_url, keyword=keyword, job_count=job_count)
             
-            body = scraper.get_html_body(rendered_url)
+            body = scraper.get_html_body(url=rendered_url)
             titles_page = body.find_all('div', attrs={'class': 'grp-jobfinder-cell-title'})
             titles_page = [title.text for title in titles_page]
             locations_page = body.find_all('div', attrs={'class': 'grp-jobfinder-cell-location'})

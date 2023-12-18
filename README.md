@@ -1,12 +1,15 @@
 # job-application-automation (work-in progress)
-Life is too short to find jobs manually
+
+## Life is too short to find jobs manually!
+Get notified about jobs from Smart Recruiters, Workday, Greenhouse and many more.
 
 ## Find jobs
-Monitor platforms like Smart Recruiters and Workday for jobs based on keywords you like (other platforms to be added soon)
+Monitor platforms like <b>Smart Recruiters, Workday, Greenhouse</b> and career websites of <b> BMW, SAP, MunichRE </b> for jobs based on keywords you like (more platforms to be added soon)
 
 ### Get Notified!
 Whenever a job matches your requirements, you will get a notification (supports Windows for now). 
-Click on the notification to open the matched jobs on your browser.
+
+Just click on the notification to open the matched jobs on your browser.
 
 ## Apply for jobs automatically
 Save your application within code and conveniently apply to jobs you like (supports Smart Recruiters for now)
