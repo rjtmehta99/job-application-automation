@@ -74,3 +74,7 @@ workday_companies:
   - company_name: 'Applied Materials'
     url: 'https://amat.wd1.myworkdayjobs.com/en-US/External/jobs?q=data&Country=dcc5b7608d8644b3a93716604e78e995'
     csv_path: './data/workday_appliedmat.csv'
+  
+  - company_name: 'Dentsu'
+    url: 'https://dentsuaegis.wd3.myworkdayjobs.com/en-US/DAN_GLOBAL?q=data%20science&locationCountry=dcc5b7608d8644b3a93716604e78e995'
+    csv_path: './data/workday_dentsu.csv'

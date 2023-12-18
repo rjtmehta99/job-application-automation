@@ -61,12 +61,14 @@ class WorkdayJobScraper(Selenium):
         job_titles, job_urls = self.scrape_jobs()
         try:
             job_titles_next_page, job_urls_next_page = self.next_page()
+            pagination_available = True
         except NoSuchElementException:
             # No pagination on website
-            pass
-
-        job_titles.extend(job_titles_next_page)
-        job_urls.extend(job_urls_next_page)
+            pagination_available = False
+        
+        if pagination_available:
+            job_titles.extend(job_titles_next_page)
+            job_urls.extend(job_urls_next_page)
 
         job_data = {'title': job_titles, 'url': job_urls}
         jobs_df = self.save_jobs(job_data=job_data)
