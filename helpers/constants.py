@@ -1,4 +1,4 @@
-RESUME_PATH = 'E:\Playground\job-application-automation\data\Resume_Rajat_Mehta.pdf'
+RESUME_PATH = 'E:\Playground\job-application-automation\data\Resume_RajatMehta.pdf'
 CANDIDATE_DATA = './data/candidate_data.yaml'
 WORKDAY_DATA = './data/workday_data.yaml'
 

@@ -104,9 +104,13 @@ class Selenium():
 
     def send_keys_by_id(self, id_: str, key: str) -> None:
         element = self.driver.find_element(by=By.ID, value=id_)
-        for char in key:
-            element.send_keys(char)
-            self.sleep(duration=1)
+        if len(key) < 25:
+            for char in key:
+                element.send_keys(char)
+                self.sleep(duration=1)
+        else:
+            element.send_keys(key)
+            self.sleep()
 
     def send_keys_by_xpath(self, xpath: str, keys: list[str]) -> None:
         element = self.driver.find_element(by=By.XPATH, value=xpath)
