@@ -1,4 +1,5 @@
 # Keep search locations as they are on the job board, case insensitive
+import re
 import time
 from helpers.csv_helper import CSVManager
 from helpers.scraper_helper import ScraperHelper
@@ -10,10 +11,16 @@ def scrape(company_data):
     # Load company parameters from Greenhouse YAML file
     name = company_data['name']
     url = company_data['url']
-    search_titles = company_data['search_titles']
     search_locations = company_data['search_locations']
     csv_path = company_data['csv_path']
-    columns = company_data['columns']
+    try:
+        search_titles = company_data['search_titles']
+    except:
+        search_titles = constants.GH_SEARCH_TITLES
+    try:
+        columns = company_data['columns']
+    except KeyError:
+        columns = constants.GH_COLUMNS
 
     scraper = ScraperHelper(company_name=name)
     titles, urls, locations = [], [], []
@@ -24,9 +31,11 @@ def scrape(company_data):
         job_title = job.find('a').text.lower().strip()
         job_url = job.find('a')['href']
         job_url = constants.GH_BASE_URL + job_url
-        job_location = job.find('span').text.lower()
-        
-        if job_location in search_locations:
+        job_location = job.find('span').text
+        #job_location = re.sub(',', '', job_location)
+        # If job location matches or if search_locations is empty in YAML
+        # Empty search_locations indicates all locations are suitable.
+        if job_location in search_locations or (len(search_locations) == 0):
             for title in job_title.split():
                 if any(title in value for value in search_titles):
                     titles.append(job_title)
@@ -39,6 +48,7 @@ def scrape(company_data):
     print(jobs_df)
 
 if __name__ == '__main__':
+    print('here')
     import yaml
     with open('./data/greenhouse_data.yaml', 'r') as file:
         master_data = yaml.safe_load(file)

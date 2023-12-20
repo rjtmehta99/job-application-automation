@@ -19,3 +19,6 @@ WORKDAY_COLUMNS = ['title', 'url', 'notified']
 COMPANY_MASTER_DATA = './data/company_master_data.yaml'
 GREENHOUSE_DATA = './data/greenhouse_data.yaml'
 GH_BASE_URL = 'https://boards.greenhouse.io'
+GH_COLUMNS = ['title', 'url', 'location', 'notified']
+GH_SEARCH_TITLES = ['analytics', 'analyst', 'data', 'engineer', 'science', 'NLP', 'text', 'AI', 'machine', 'learning', 'ml', 'machine learning', 
+                    'scientist', 'GenAI']

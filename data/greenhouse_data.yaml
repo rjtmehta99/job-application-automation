@@ -6,6 +6,58 @@ greenhouse_companies:
     csv_path: './data/gh_grover.csv'
     columns: ['title', 'url', 'location', 'notified']
   
-  - name: 'Deutsche Bank'
-    url: 'https://db.wd3.myworkdayjobs.com/en-US/DBWebsite/details/Divisional-Risk-and-Control-Analyst--d-m-w-_R0263735?q=data+science&Country=dcc5b7608d8644b3a93716604e78e995&workerSubType=645e861bc53a015625eefdaefb3a1909'
-    csv_path: './data/workday_deutsche_bank.csv'
+  - name: 'Doctolib'
+    url: 'https://boards.greenhouse.io/doctolib'
+    search_titles: ['analytics', 'analyst', 'data', 'engineer', 'science', 'NLP', 'text', 'AI', 'machine', 'learning', 'ml', 'machine learning', 'scientist']
+    search_locations: ['germany', 'Stuttgart', 'Berlin, Berlin, Germany']
+    csv_path: './data/gh_doctolib.csv'
+    columns: ['title', 'url', 'location', 'notified']
+  
+  - name: 'Dataiku'
+    url: 'https://boards.greenhouse.io/dataikujobs/'
+    search_locations: ['Germany, Remote']
+    csv_path: './data/gh_dataiku.csv'
+  
+  - name: 'Grammarly'
+    url: 'https://boards.greenhouse.io/grammarly/'
+    search_locations: ['Germany; Hybrid']
+    csv_path: './data/gh_grammarly.csv'
+
+  - name: 'Figma'
+    url: 'https://boards.greenhouse.io/grammarly/'
+    search_locations: ['Berlin, Germany']
+    csv_path: './data/gh_figma.csv'
+
+  - name: 'Duolingo'
+    url: 'https://boards.greenhouse.io/duolingo'
+    search_locations: ['Berlin, Germany']
+    csv_path: './data/gh_duolingo.csv'
+
+  - name: 'HelloFresh'
+    url: 'https://boards.greenhouse.io/embed/job_board?for=hellofresh'
+    search_locations: ['München', 'Berlin', 'Saarbrücken', 'Frankfurt', 'Berlin, Berlin, Germany']
+    csv_path: './data/gh_hellofresh.csv'
+
+  - name: 'Mozilla'
+    url: 'https://boards.greenhouse.io/mozilla'
+    search_locations: ['Remote Germany', 'Berlin Office']
+    csv_path: './data/gh_mozilla.csv'
+
+  - name: 'Canonical'
+    url: 'https://boards.greenhouse.io/canonical/'
+    search_locations: ['Home based - Americas, EMEA', 'Home based - EMEA', 'Home based - Worldwide']
+    csv_path: './data/gh_canonical.csv'
+  
+  - name: 'Entrix'
+    url: 'https://boards.greenhouse.io/entrix'
+    search_locations: ['Munich', 'München', 'Munich, Germany', 'München, Deutschland']
+    csv_path: './data/gh_entrix.csv'
+
+  - name: 'FreeNow'
+    url: 'https://boards.greenhouse.io/freenow'
+    search_locations: []
+    csv_path: './data/gh_freenow.csv'
+  
+  - name: 'Tourlane'
+    url: 'https://boards.greenhouse.io/embed/job_board?for=tourlanegmbh'
+    search_locations: ['Berlin, Germany', 'Home Office or Berlin, Germany']
