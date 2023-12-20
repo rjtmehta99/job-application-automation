@@ -27,18 +27,18 @@ def scrape():
 
                     body = scraper.get_html_body(url=rendered_url)
 
-                    urls_page = body.find_all('a',
+                    url_rows_page = body.find_all('a',
                                               attrs={'class': 'jobTitle-link'})
                     base_url = 'https://jobs.sap.com'
-                    urls_page = [base_url+url['href'] for url in urls_page]
-                    titles_page = [url.text for url in urls_page]
-                    locations_page = body.find_all('span', 
-                                                   attrs={'class': 'jobLocation'})
-                    locations_page = [location.text for location in locations_page]
+                    urls_page = [base_url+url_row['href'] for url_row in url_rows_page]
+                    titles_page = [url_row.text for url_row in url_rows_page]
+                    #locations_page = body.find_all('span', 
+                    #                               attrs={'class': 'jobLocation'})
+                    #locations_page = [location.text for location in locations_page]
 
                     urls.extend(urls_page)
                     titles.extend(titles_page)
-                    locations.extend(locations_page)
+                    #locations.extend(locations_page)
                     time.sleep(3)
                 # If no jobs for the keyword
                 except:
@@ -46,7 +46,8 @@ def scrape():
 
     csv_manager = CSVManager(csv_path=csv_path, 
                             columns=columns) 
-    jobs_df = csv_manager.save_jobs(job_data={'title': titles, 'url': urls, 'location': locations})
+    #jobs_df = csv_manager.save_jobs(job_data={'title': titles, 'url': urls, 'location': locations})
+    jobs_df = csv_manager.save_jobs(job_data={'title': titles, 'url': urls})
     scraper.notify_new_jobs(jobs_df=jobs_df, csv_path=csv_path)
 
 if __name__ == '__main__':

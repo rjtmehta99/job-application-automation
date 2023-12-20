@@ -6,7 +6,7 @@ with open(COMPANY_MASTER_DATA, 'r') as file:
     data = yaml.safe_load(file)
 
 # Get all python files and run scrape
-python_files = [data[key]['python_file'] for key in data.keys()][1:]
+python_files = [data[key]['python_file'] for key in data.keys()][2:]
 
 for py_file in python_files:
     imported_file = importlib.import_module(name=py_file)
