@@ -61,3 +61,4 @@ greenhouse_companies:
   - name: 'Tourlane'
     url: 'https://boards.greenhouse.io/embed/job_board?for=tourlanegmbh'
     search_locations: ['Berlin, Germany', 'Home Office or Berlin, Germany']
+    csv_path: './data/gh_tourlane.csv'
