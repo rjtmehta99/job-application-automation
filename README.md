@@ -1,12 +1,15 @@
 # job-application-automation (work-in progress)
 
 ## Life is too short to find jobs manually!
-Get notified about jobs from Smart Recruiters, Workday, Greenhouse and many more.
+Get notified about jobs from Greenhouse, Workday, Smart Recruiters and many more.
+Currently, thousands of companies are using these platforms for hiring. This project lets you sit back and relax while it searches for all the companies you want. 
+
+Just add the companies, keywords and locations you like to the YAML files, set the script to run as you like and you are good to go!
 
 ## Find jobs
-Monitor platforms like <b>Smart Recruiters, Workday, Greenhouse</b> and career websites of <b> BMW, SAP, MunichRE </b> for jobs based on keywords you like (more platforms to be added soon)
+Not just big platforms liek <b>Smart Recruiters, Workday, Greenhouse</b>, this project also supports custom career websites of Fortune 500 companies like <b> BMW, SAP, MunichRE </b> for jobs based on keywords and locations you like (more platforms to be added soon)
 
-### Get Notified!
+## Get Notified!
 Whenever a job matches your requirements, you will get a notification (supports Windows for now). 
 
 Just click on the notification to open the matched jobs on your browser.

@@ -30,7 +30,10 @@ def scrape(company_data):
     for job in jobs:
         job_title = job.find('a').text.lower().strip()
         job_url = job.find('a')['href']
-        job_url = constants.GH_BASE_URL + job_url
+        # For HelloFresh and Tourlane the GH redirects to their career website.
+        # This merged 2 urls from different domains
+        if name != ('HelloFresh' or 'Tourlane'):
+            job_url = constants.GH_BASE_URL + job_url
         job_location = job.find('span').text
         #job_location = re.sub(',', '', job_location)
         # If job location matches or if search_locations is empty in YAML
