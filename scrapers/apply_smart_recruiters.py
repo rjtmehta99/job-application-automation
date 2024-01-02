@@ -34,10 +34,15 @@ class SmartRecruiterApplier(Selenium):
         self.send_keys_by_id(id_='confirm-email-input', key=self.candidate_data['email_id'])
 
         # Send current location
-        self.clear_by_xpath(xpath='//input[@class="sr-location-autocomplete element--input element--block"]')
-        self.send_keys_by_xpath(xpath='//input[@class="sr-location-autocomplete element--input element--block"]',
+        try:
+            self.clear_by_xpath(xpath='//input[@class="sr-location-autocomplete element--input element--block"]')
+            self.send_keys_by_xpath(xpath='//input[@class="sr-location-autocomplete element--input element--block"]',
                                     keys=[self.candidate_data['location'][:-1], Keys.DOWN, Keys.ENTER])
-
+        except NoSuchElementException:
+            self.clear_by_xpath(xpath='//input[@aria-label="Wohnsitz"]')
+            self.send_keys_by_xpath(xpath='//input[@aria-label="Wohnsitz"]',
+                                    keys=[self.candidate_data['location'][:-1], Keys.DOWN, Keys.ENTER])
+        
         # Send contact number
         self.clear_by_id(id_='phone-number-input')
         self.send_keys_by_id(id_='phone-number-input', key=self.candidate_data['mobile_number'])

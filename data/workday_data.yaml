@@ -78,3 +78,11 @@ workday_companies:
   - company_name: 'Dentsu'
     url: 'https://dentsuaegis.wd3.myworkdayjobs.com/en-US/DAN_GLOBAL?q=data%20science&locationCountry=dcc5b7608d8644b3a93716604e78e995'
     csv_path: './data/workday_dentsu.csv'
+
+  - company_name: 'FleetCor'
+    url: 'https://fleetcor.wd3.myworkdayjobs.com/en-US/Ext_001?q=data&locationCountry=dcc5b7608d8644b3a93716604e78e995'
+    csv_path: './data/workday_fleetcor.csv'
+  
+  - company_name: 'Amadeus'
+    url: 'https://amadeus.wd3.myworkdayjobs.com/jobs?q=data&locationCountry=dcc5b7608d8644b3a93716604e78e995'
+    csv_path: './data/workday_amadeus.csv'
